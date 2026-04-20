@@ -1,5 +1,6 @@
 from src.data_loader import load_data
 from src.data_cleaner import load_and_clean_data
+from src.analyzer import base_stat
 
 raw_data = load_data()
 cleaned_data = load_and_clean_data()
@@ -36,5 +37,7 @@ print(cleaned_data.shape)
 
 print("\nОчищенные данные: количество дубликатов")
 print(cleaned_data.duplicated().sum())
+
+base_stat(cleaned_data)
 
 
