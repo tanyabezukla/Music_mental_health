@@ -1,5 +1,6 @@
 import pandas as pd 
 
+
 def base_stat(data):
     print("\nБазовая статистика")
 
@@ -18,5 +19,23 @@ def base_stat(data):
     print("\nМузыка во время работы:")
     print(data['While working'].value_counts())
 
+
+def genre_analysis(data):
+    genre_stats = data.groupby("Fav genre")[["Anxiety", "Depression", "Insomnia", "OCD"]].mean()
+
+    print(genre_stats.sort_values("Anxiety", ascending = False).head(10))
+
+
+
+def working_analysis(data):
+    print("\nсравнение: музыка во время работы")
+
+    work_stats = data.groupby("While working")[["Anxiety", "Depression", "Insomnia", "OCD", "Hours per day"]].mean()
+    print(work_stats.sort_values("Anxiety", ascending = False))
+
+def hours_analysis(data):
+    print("\n Связь числа прослушиваний и состояний")
+    hours_stats = data[["Anxiety", "Depression", "Insomnia", "OCD", "Hours per day"]].corr()
+    print(hours_stats)
 
     
