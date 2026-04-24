@@ -12,7 +12,7 @@ def base_stat(data):
         "среднее число прослушиваний в день": round(data["Hours per day"].mean(), 2),
         "средний показатель тревоги": round(data["Anxiety"].mean(), 2),
         "средний показатель депрессии": round(data["Depression"].mean(), 2),
-        "средний показатель бессоницы": round(data["Insomnia"].mean(), 2),
+        "средний показатель бессонницы": round(data["Insomnia"].mean(), 2),
         "средний показатель ОКР": round(data["OCD"].mean(), 2),
     }
     return stats

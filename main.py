@@ -66,6 +66,9 @@ def main():
     for insight in insight_generator(insights):
         print(insight)
 
+    for line in report_generator(cleaned_data):
+        print(line)
+
     
 
 
