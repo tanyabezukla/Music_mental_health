@@ -1,6 +1,6 @@
 from src.data_loader import load_data
 from src.data_cleaner import load_and_clean_data
-from src.analyzer import base_stat, genre_analysis, working_analysis, hours_analysis
+from src.analyzer import base_stat, top_genres, streaming_service_stats, genre_analysis, working_analysis, hours_correlation, numpy_stats
 
 
 def show_raw_data_info(raw_data):
@@ -60,6 +60,7 @@ def main():
     # genre_analysis(cleaned_data)
     # working_analysis(cleaned_data)
     # hours_analysis(cleaned_data)
+    # print(numpy_stats(cleaned_data))
 
 
 if __name__ == "__main__":
