@@ -16,6 +16,7 @@ def load_and_clean_data() -> pd.DataFrame:
     df["BPM"] = pd.to_numeric(df["BPM"], errors="coerce")
 
     df = df.dropna(subset=["Age"])
+    df = df[(df["Age"] >= 10) & (df["Age"] <= 80)]
 
     #заполняем пропуски в текстовых столбцах
     df["Primary streaming service"] = df["Primary streaming service"].fillna("Unknown")
