@@ -13,6 +13,8 @@ from src.analyzer import (
 from src.data_cleaner import load_and_clean_data
 from src.generators import report_generator
 
+from src.visualizer import build_all_plots
+
 
 def print_mapping(mapping):
     for key, value in mapping.items():
@@ -25,8 +27,7 @@ def main():
     )
     parser.add_argument(
         "command",
-        nargs="?",
-        choices=["stats", "analyze", "report", "genres", "services"],
+        choices=["stats", "analyze", "report", "genres", "services", "plot"],
         help="команда для выполнения",
     )
     args = parser.parse_args()
@@ -70,6 +71,10 @@ def main():
     elif args.command == "services":
         print("Статистика по стриминговым сервисам:")
         print(streaming_service_stats(data))
+
+    elif args.command == "plot":
+        build_all_plots(data)
+        print("Графики сохранены в папке plots")
 
 
 if __name__ == "__main__":
