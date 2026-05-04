@@ -1,80 +1,76 @@
-from src.data_loader import load_data
+import argparse
+
+from src.analyzer import (
+    base_stat,
+    genre_analysis,
+    hours_correlation,
+    make_conclusions,
+    numpy_stats,
+    streaming_service_stats,
+    top_genres,
+    working_analysis,
+)
 from src.data_cleaner import load_and_clean_data
-from src.analyzer import base_stat, top_genres, streaming_service_stats, genre_analysis, working_analysis, hours_correlation, numpy_stats, make_conclusions
-from src.generators import insight_generator, report_generator
-
-def show_raw_data_info(raw_data):
-    
-    
-
-    print("\nИсходные данные: первые 5 строк")
-    print(raw_data.head())
-
-    print("\nИсходные данные: информация о таблице")
-    raw_data.info()
-
-    print("\nИсходные данные: названия столбцов")
-    print(raw_data.columns)
-
-    print("\nИсходные данные: количество пропусков")
-    print(raw_data.isnull().sum())
-
-    print("\nИсходные данные: размер таблицы")
-    print(raw_data.shape)
-
-    print("\nИсходные данные: количество дубликатов")
-    print(raw_data.duplicated().sum())
+from src.generators import report_generator
 
 
-
-def show_cleaned_data_info(cleaned_data):
-
-
-    print("\nОчищенные данные: первые 5 строк")
-    print(cleaned_data.head())
-
-    print("\nОчищенные данные: информация о таблице")
-    cleaned_data.info()
-
-    print("\nОчищенные данные: количество пропусков")
-    print(cleaned_data.isnull().sum())
-
-    print("\nОчищенные данные: размер таблицы")
-    print(cleaned_data.shape)
-
-    print("\nОчищенные данные: количество дубликатов")
-    print(cleaned_data.duplicated().sum())
-
-    print(cleaned_data.dtypes)
+def print_mapping(mapping):
+    for key, value in mapping.items():
+        print(f"{key}: {value}")
 
 
 def main():
+    parser = argparse.ArgumentParser(
+        description="Анализ данных опроса о музыкальных предпочтениях"
+    )
+    parser.add_argument(
+        "command",
+        nargs="?",
+        choices=["stats", "analyze", "report", "genres", "services"],
+        help="команда для выполнения",
+    )
+    args = parser.parse_args()
 
-    # raw_data = load_data()
-    cleaned_data = load_and_clean_data()
+    if args.command is None:
+        parser.print_help()
+        return
 
-    # show_raw_data_info(raw_data)
-    # show_cleaned_data_info(cleaned_data)
+    data = load_and_clean_data()
 
-    # base_stat(cleaned_data)
-    # genre_analysis(cleaned_data)
-    # working_analysis(cleaned_data)
-    # hours_analysis(cleaned_data)
-    # print(numpy_stats(cleaned_data))
-    # print(make_conclusions(cleaned_data))
-    insights = make_conclusions(cleaned_data)
-    for insight in insight_generator(insights):
-        print(insight)
+    if args.command == "stats":
+        print("Базовая статистика:")
+        print_mapping(base_stat(data))
+        print("\nСтатистика numpy:")
+        print_mapping(numpy_stats(data))
 
-    for line in report_generator(cleaned_data):
-        print(line)
+    elif args.command == "analyze":
+        print("Анализ по жанрам:")
+        print(genre_analysis(data).head(10))
 
-    
+        print("\nМузыка во время работы:")
+        print(working_analysis(data))
 
+        print("\nКорреляция между часами прослушивания и состояниями:")
+        print(hours_correlation(data))
 
+        print("\nВыводы:")
+        insights = make_conclusions(data)
+        for insight in insights:
+            print(f"- {insight}")
+
+    elif args.command == "report":
+        print("Генерация отчета:")
+        for line in report_generator(data):
+            print(line)
+
+    elif args.command == "genres":
+        print("Топ жанров:")
+        print(top_genres(data, 10))
+
+    elif args.command == "services":
+        print("Статистика по стриминговым сервисам:")
+        print(streaming_service_stats(data))
 
 
 if __name__ == "__main__":
     main()
-
-
