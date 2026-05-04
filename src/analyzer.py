@@ -18,7 +18,7 @@ def base_stat(data):
     return stats
 
 
-def top_genres(data, n):
+def top_genres(data, n=10):
     return data["Fav genre"].value_counts().head(n)
 
 
