@@ -83,13 +83,13 @@ measure_time — измеряет время выполнения функции
 5. CLI
 
 Проект запускается через терминал командами:
-
+```
 python main.py stats
 python main.py analyze
 python main.py report
 python main.py genres
 python main.py services
-
+```
 6. Аналитика
 
 
