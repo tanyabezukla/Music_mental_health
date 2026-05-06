@@ -78,4 +78,11 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except FileNotFoundError:
+        print("Программа остановлена: файл с данными не найден.")
+    except ValueError as error:
+        print(f"Программа остановлена: {error}")
+    except Exception as error:
+        print(f"Произошла неожиданная ошибка: {error}")

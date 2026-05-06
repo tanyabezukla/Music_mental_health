@@ -3,8 +3,8 @@ import pandas as pd
 from src.data_loader import load_data
 
 
-def load_and_clean_data() -> pd.DataFrame:
-    """загружаем сет, удаляем дубликаты, заполняем пропуски"""
+def load_and_clean_data() :
+    
     df = load_data().copy()
     df = df.drop_duplicates()
     
