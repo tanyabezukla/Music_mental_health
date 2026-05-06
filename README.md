@@ -53,7 +53,7 @@ music_project/
 ├── main.py
 ├── README.md
 └── pytest.ini
-
+```
 ## Что реализовано по заданию
 1. pandas
 Используется для:
